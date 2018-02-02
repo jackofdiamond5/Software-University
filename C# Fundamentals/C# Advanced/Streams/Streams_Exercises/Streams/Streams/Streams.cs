@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.IO.Compression;
 using System.Linq;
+using System.IO.Compression;
+using System.Collections.Generic;
 
 namespace Streams
 {
@@ -39,7 +39,55 @@ namespace Streams
             //};
             //UnzipAndAssemble(zippedFiles);
 
+            //DirectoryTraversal();
+        }
 
+        /// <summary>
+        /// Exercise 6
+        /// </summary>
+        public static void DirectoryTraversal()
+        {
+            var path = Console.ReadLine();
+            var fileDict = new Dictionary<string, List<FileInfo>>();
+
+            var files = Directory.GetFiles(path);
+
+            foreach (var file in files)
+            {
+                var fileInfo = new FileInfo(file);
+                var extension = fileInfo.Extension;
+
+                if (!fileDict.ContainsKey(extension))
+                {
+                    fileDict[extension] = new List<FileInfo>();
+                }
+
+                fileDict[extension].Add(fileInfo);
+            }
+
+            fileDict = fileDict.OrderByDescending(f => f.Value.Count)
+                .ThenBy(f => f.Key)
+                .ToDictionary(k => k.Key, v => v.Value);
+
+            var fileName = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/report.txt";
+
+            using (var writer = new StreamWriter(fileName))
+            {
+                foreach (var kvp in fileDict)
+                {
+                    var extension = kvp.Key;
+                    writer.WriteLine(extension);
+
+                    var fileInfoList = kvp.Value;
+
+                    foreach (var fi in fileInfoList.OrderByDescending(fi => fi.Length))
+                    {
+                        var fileSize = (double) fi.Length / 1024;
+
+                        writer.WriteLine($"--{fi.Name} - {fileSize:F3}kb");
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -58,7 +106,7 @@ namespace Streams
                 {
                     var part = $"{DirectoryPath}/Part - {i}.{extension}.gz";
                     var sizeSum = 0L;
-                    
+
                     using (var writer = new GZipStream(new FileStream(part, FileMode.Create), CompressionLevel.Optimal))
                     {
                         var buffer = new byte[4096];
