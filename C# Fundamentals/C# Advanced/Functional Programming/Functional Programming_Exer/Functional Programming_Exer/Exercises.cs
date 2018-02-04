@@ -1,12 +1,87 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Functional_Programming_Exer
 {
     public class Exercises
     {
         public static void Main()
+        {
+           
+        }
+
+        /// <summary>
+        /// Exercise 13
+        /// </summary>
+        public static void TriFunction()
+        {
+            var sum = int.Parse(Console.ReadLine());
+            var names = Console.ReadLine().Split().ToList();
+
+            Func<string, bool> filter = f => f.ToCharArray().Sum(c => c) >= sum;
+
+            Console.WriteLine(names.FirstOrDefault(filter));
+        }
+
+        /// <summary>
+        /// Exercise10
+        /// </summary>
+        private static void PredicateParty()
+        {
+            var guests = Console.ReadLine().Split().ToList();
+
+            string command;
+            while ((command = Console.ReadLine().ToLower()) != "party!")
+            {
+                var data = command.Split();
+                var commandType = data[0];
+                var commandProp = data[1];
+                var commandValue = data[2];
+
+                switch (commandType)
+                {
+                    case "remove":
+                        var guestsToRemove = FilterNames(commandProp, commandValue, guests);
+                        foreach (var guest in guestsToRemove)
+                        {
+                            guests.Remove(guest);
+                        }
+                        break;
+                    case "double":
+                        var guestsToDouble = FilterNames(commandProp, commandValue, guests);
+                        guests.AddRange(guestsToDouble);
+                        break;
+                }
+            }
+
+            Console.WriteLine(guests.Count != 0
+                ? $"{string.Join(", ", guests.OrderBy(x => x))} are going to the party!"
+                : "Nobody is going to the party!");
+        }
+        private static IEnumerable<string> FilterNames(string commandType, string value, IEnumerable<string> names)
+        {
+            var isInt = long.TryParse(value, out long result);
+            if (isInt)
+            {
+                return names.Where(n => n.Length == result).ToList();
+            }
+
+            switch (commandType)
+            {
+                case "startswith":
+                    return names.Where(n => n.ToLower().StartsWith(value)).ToList();
+                case "endswith":
+                    return names.Where(n => n.ToLower().EndsWith(value)).ToList();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Exercise 9
+        /// </summary>
+        public static void ListOfPredicates()
         {
             var number = int.Parse(Console.ReadLine());
 
@@ -25,7 +100,6 @@ namespace Functional_Programming_Exer
 
             Console.WriteLine(string.Join(" ", resultList));
         }
-
 
         /// <summary>
         /// Exercise 8
