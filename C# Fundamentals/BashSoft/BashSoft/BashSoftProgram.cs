@@ -1,4 +1,6 @@
-﻿namespace BashSoft
+﻿using BashSoft.IO;
+
+namespace BashSoft
 {
     public class BashSoftProgram
     {
