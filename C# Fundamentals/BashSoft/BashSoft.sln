@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BashSoft", "BashSoft\BashSoft.csproj", "{C2A241FA-8088-43DB-BE00-1A07E0FD500E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleJudge", "SimpleJudge\SimpleJudge\SimpleJudge.csproj", "{DF0B0091-5051-4C1D-A9A8-F9FDEEC50EBD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C2A241FA-8088-43DB-BE00-1A07E0FD500E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2A241FA-8088-43DB-BE00-1A07E0FD500E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2A241FA-8088-43DB-BE00-1A07E0FD500E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF0B0091-5051-4C1D-A9A8-F9FDEEC50EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF0B0091-5051-4C1D-A9A8-F9FDEEC50EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF0B0091-5051-4C1D-A9A8-F9FDEEC50EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF0B0091-5051-4C1D-A9A8-F9FDEEC50EBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

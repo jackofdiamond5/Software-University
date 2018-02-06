@@ -1,9 +1,8 @@
 ﻿using System;
-using BashSoft;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 
-namespace SimpleJudge
+namespace BashSoft
 {
     public static class Tester
     {

@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace BashSoft
 {
     public static class StudentsRepository
     {
-        public static bool isDataInitialized = false;
+        public static bool IsDataInitialized;
         private static Dictionary<string, Dictionary<string, List<int>>> studentsByCourse;
 
-        public static void InitializeData()
+        public static void InitializeData(string fileName)
         {
-            if (!isDataInitialized)
+            if (!IsDataInitialized)
             {
                 OutputWriter.WriteMessageOnNewLine("Reading data...");
                 studentsByCourse = new Dictionary<string, Dictionary<string, List<int>>>();
-                ReadData();
-                isDataInitialized = true;
+                ReadData(fileName);
+                IsDataInitialized = true;
             }
             else
             {
@@ -23,34 +24,44 @@ namespace BashSoft
             }
         }
 
-        private static void ReadData()
+        private static void ReadData(string fileName)
         {
-            string input;
+            var path = SessionData.CurrentPath + "\\" + fileName;
 
-            while (!string.IsNullOrEmpty(input = Console.ReadLine()))
+            if (File.Exists(path))
             {
-                var tokens = input.Split(' ');
-                var course = tokens[0];
-                var student = tokens[1];
-                var mark = int.Parse(tokens[2]);
+                var allInputLines = File.ReadAllLines(path);
 
-                if (!studentsByCourse.ContainsKey(course))
+                for (var line = 0; line < allInputLines.Length; line++)
                 {
-                    studentsByCourse.Add(course, new Dictionary<string, List<int>>());
-                }
-                else
-                {
-                    if (!studentsByCourse[course].ContainsKey(student))
+                    if (string.IsNullOrEmpty(allInputLines[line]))
+                        continue;
+
+                    var tokens = allInputLines[line].Split();
+
+                    var course = tokens[0];
+                    var student = tokens[1];
+                    var mark = int.Parse(tokens[2]);
+
+                    if (!studentsByCourse.ContainsKey(course))
                     {
-                        studentsByCourse[course].Add(student, new List<int>());
+                        studentsByCourse.Add(course, new Dictionary<string, List<int>>());
                     }
+                    else
+                    {
+                        if (!studentsByCourse[course].ContainsKey(student))
+                        {
+                            studentsByCourse[course].Add(student, new List<int>());
+                        }
 
-                    studentsByCourse[course][student].Add(mark);
+                        studentsByCourse[course][student].Add(mark);
+                    }
                 }
             }
-
-            isDataInitialized = true;
-            OutputWriter.WriteMessageOnNewLine("Data read!");
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+            }
         }
 
         private static bool IsQueryForCoursePossible(string courseName)
@@ -61,7 +72,7 @@ namespace BashSoft
                 return false;
             }
 
-            if (isDataInitialized)
+            if (IsDataInitialized)
             {
                 return true;
             }
