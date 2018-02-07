@@ -8,7 +8,6 @@ namespace MultidimArr
     {
         public static void Main()
         {
-            
         }
 
         /// <summary>
