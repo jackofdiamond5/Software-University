@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task 1 - Key Revolver", "Exam 11-02-2018\Task 1 - Key Revolver.csproj", "{9B0C3F6D-68C3-4DFF-9F7C-77014C0DB3B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task 1 - Key Revolver", "Task 1 - Key Revolver\Task 1 - Key Revolver.csproj", "{9B0C3F6D-68C3-4DFF-9F7C-77014C0DB3B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task 2 - Sneaking", "Task 2 - Sneaking\Task 2 - Sneaking.csproj", "{35177211-4948-4406-9094-1D70E34CA10C}"
 EndProject
