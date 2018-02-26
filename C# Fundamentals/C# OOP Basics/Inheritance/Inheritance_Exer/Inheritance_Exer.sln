@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 2 - Book Shop", "Ex. 2 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 3 - Mankind", "Ex. 3 - Mankind\Ex. 3 - Mankind.csproj", "{9D92A143-3C97-43C3-AE92-39D3830498E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 4 - Online Radio DB", "Ex. 4 - Online Radio DB\Ex. 4 - Online Radio DB.csproj", "{E38C48A0-E066-463A-A7D9-3594135BD0CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 6 - Animals", "Ex. 6 - Animals\Ex. 6 - Animals.csproj", "{446ED6C2-BA85-42BB-A206-89BC52E77DE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{9D92A143-3C97-43C3-AE92-39D3830498E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D92A143-3C97-43C3-AE92-39D3830498E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D92A143-3C97-43C3-AE92-39D3830498E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E38C48A0-E066-463A-A7D9-3594135BD0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38C48A0-E066-463A-A7D9-3594135BD0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38C48A0-E066-463A-A7D9-3594135BD0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38C48A0-E066-463A-A7D9-3594135BD0CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{446ED6C2-BA85-42BB-A206-89BC52E77DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{446ED6C2-BA85-42BB-A206-89BC52E77DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{446ED6C2-BA85-42BB-A206-89BC52E77DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{446ED6C2-BA85-42BB-A206-89BC52E77DE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
