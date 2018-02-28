@@ -1,10 +1,10 @@
-﻿public class Citizen : ICitizen, IAlive
+﻿public class Citizen : ICitizen, IAlive, IBuyer
 {
-    public Citizen(string citizenName, int citizenAge, string citizenId, string birthdate)
+    public Citizen(string name, int age, string id, string birthdate)
     {
-        this.Name = citizenName;
-        this.Age = citizenAge;
-        this.Id = citizenId;
+        this.Name = name;
+        this.Age = age;
+        this.Id = id;
         this.Birthdate = birthdate;
     }
 
@@ -15,6 +15,13 @@
     public int Age { get; }
 
     public string Birthdate { get; }
+
+    public int Food { get; private set; }
+
+    public void BuyFood()
+    {
+        this.Food += 10;
+    }
 
     public override string ToString()
     {

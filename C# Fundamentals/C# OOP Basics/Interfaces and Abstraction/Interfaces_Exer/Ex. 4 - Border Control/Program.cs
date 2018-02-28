@@ -6,58 +6,51 @@ public class Program
 {
     static void Main()
     {
-        var citizens = new List<ICitizen>();
-        var petsAndHumans = new List<IAlive>();
+        var peopleCount = int.Parse(Console.ReadLine());
+
+        var people = new List<IBuyer>();
+
+        for (var i = 0; i < peopleCount; i++)
+        {
+            var data = Console.ReadLine().Split();
+
+            switch (data.Length)
+            {
+                case 4:
+                    var citizenName = data[0];
+                    var citizenAge = int.Parse(data[1]);
+                    var citizenId = data[2];
+                    var birthdate = data[3];
+
+                    var citizen = new Citizen(citizenName, citizenAge, citizenId, birthdate);
+
+                    people.Add(citizen);
+                    break;
+                case 3:
+                    var rebelName = data[0];
+                    var rebelAge = int.Parse(data[1]);
+                    var rebelGroup = data[2];
+
+                    var rebel = new Rebel(rebelName, rebelAge, rebelGroup);
+
+                    people.Add(rebel);
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
 
         string input;
         while ((input = Console.ReadLine()) != "End")
         {
-            var args = input.Split();
-            var command = args[0];
+            var buyerInput = input;
 
-            switch (command)
-            {
-                case "Citizen":
-                    var citizenName = args[1];
-                    var citizenAge = int.Parse(args[2]);
-                    var citizenId = args[3];
-                    var citizenBirthdate = args[4];
-
-                    var human = new Citizen(citizenName, citizenAge, citizenId, citizenBirthdate);
-
-                    petsAndHumans.Add(human);
-                    break;
-                case "Pet":
-                    var petName = args[1];
-                    var petBirthdate = args[2];
-
-                    var pet = new Pet(petName, petBirthdate);
-
-                    petsAndHumans.Add(pet);
-                    break;
-                case "Robot":
-                    var robotModel = args[1];
-                    var robotId = args[2];
-
-                    var robot = new Robot(robotModel, robotId);
-
-                    citizens.Add(robot);
-                    break;
-            }
+            people
+                .Where(p => p.Name == buyerInput)
+                .ToList()
+                .ForEach(p => p.BuyFood());
         }
 
-        var birthdateToLookUp = Console.ReadLine();
-
-        petsAndHumans
-            .Where(e => e.Birthdate.Contains(birthdateToLookUp))
-            .ToList()
-            .ForEach(Console.WriteLine);
-
-        //var idToLookUp = Console.ReadLine();
-
-        //citizens
-        //    .Where(c => c.Id.EndsWith(idToLookUp))
-        //    .ToList()
-        //    .ForEach(Console.WriteLine);
+        Console.WriteLine(people.Sum(p => p.Food));
     }
 }

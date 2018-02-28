@@ -4,4 +4,3 @@
 
     string Birthdate { get; }
 }
-
