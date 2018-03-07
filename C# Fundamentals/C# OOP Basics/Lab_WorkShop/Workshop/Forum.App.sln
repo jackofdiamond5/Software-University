@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.App", "Forum.App.csproj", "{FA64D7AC-E0A3-451F-8F58-1DF9C702090A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Data", "Forum.Data\Forum.Data.csproj", "{57B12E80-B1F8-4A70-802E-7280CED19823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Data", "Forum.Data\Forum.Data.csproj", "{57B12E80-B1F8-4A70-802E-7280CED19823}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forum.Models", "Forum.Models\Forum.Models.csproj", "{BA8E6488-46DD-4444-92C3-B75EC5F9E662}"
 EndProject
