@@ -3,6 +3,7 @@
     using Forum.App.Controllers.Contracts;
     using Forum.App.UserInterface;
     using Forum.App.UserInterface.Contracts;
+    using Forum.App.Exceptions;
 
     public class MainController : IController, IUserRestrictedController
     {

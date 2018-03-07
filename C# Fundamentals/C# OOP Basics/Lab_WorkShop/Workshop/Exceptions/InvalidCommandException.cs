@@ -1,4 +1,4 @@
-﻿namespace Forum.App
+﻿namespace Forum.App.Exceptions
 {
     using System;
 
