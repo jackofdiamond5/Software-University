@@ -5,7 +5,7 @@ using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public static class RepositorySorters
+    public class RepositorySorter
     {
         public static void OrderAndTake(Dictionary<string, List<int>> wantedData, string comparison, int studentsToTake)
         {

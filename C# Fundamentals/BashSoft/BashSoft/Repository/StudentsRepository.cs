@@ -6,27 +6,50 @@ using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public static class StudentsRepository
+    public class StudentsRepository
     {
-        public static bool IsDataInitialized;
-        private static Dictionary<string, Dictionary<string, List<int>>> studentsByCourse;
+        public bool IsDataInitialized;
+        private Dictionary<string, Dictionary<string, List<int>>> studentsByCourse;
+        private RepositoryFilter filter;
+        private RepositorySorter sorter;
 
-        public static void InitializeData(string fileName)
+        public StudentsRepository(RepositoryFilter filter, RepositorySorter sorter)
         {
-            if (!IsDataInitialized)
+            if (this.IsDataInitialized)
             {
-                OutputWriter.WriteMessageOnNewLine("Reading data...");
-                studentsByCourse = new Dictionary<string, Dictionary<string, List<int>>>();
-                ReadData(fileName);
-                IsDataInitialized = true;
+                OutputWriter.DisplayException(ExceptionMessages.DataAlreadyInitializedException);
+                return;
             }
-            else
-            {
-                OutputWriter.WriteMessageOnNewLine(ExceptionMessages.DataAlreadyInitializedException);
-            }
+
+            this.filter = filter;
+            this.sorter = sorter;
         }
 
-        public static void OrderAndTake(string courseName, string comparison, int? studentsToTake = null)
+        public void UnloadData()
+        {
+            if (!this.IsDataInitialized)
+            {
+                OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedException);
+            }
+
+            this.studentsByCourse = new Dictionary<string, Dictionary<string, List<int>>>();
+            this.IsDataInitialized = false;
+        }
+
+        public void LoadData(string fileName)
+        {
+            if (this.IsDataInitialized)
+            {
+                OutputWriter.WriteMessageOnNewLine(ExceptionMessages.DataAlreadyInitializedException);
+                return;
+            }
+
+            OutputWriter.WriteMessageOnNewLine("Reading data...");
+            ReadData(fileName);
+            IsDataInitialized = true;
+        }
+
+        public void OrderAndTake(string courseName, string comparison, int? studentsToTake = null)
         {
             if (!IsQueryForCoursePossible(courseName))
                 return;
@@ -36,10 +59,10 @@ namespace BashSoft.Repository
                 studentsToTake = studentsByCourse[courseName].Count;
             }
 
-            RepositorySorters.OrderAndTake(studentsByCourse[courseName], comparison, studentsToTake.Value);
+            RepositorySorter.OrderAndTake(studentsByCourse[courseName], comparison, studentsToTake.Value);
         }
-        
-        public static void FilterAndTake(string courseName, string givenFilter, int? studentsToTake = null)
+
+        public void FilterAndTake(string courseName, string givenFilter, int? studentsToTake = null)
         {
             if (IsQueryForCoursePossible(courseName))
             {
@@ -48,11 +71,11 @@ namespace BashSoft.Repository
                     studentsToTake = studentsByCourse[courseName].Count;
                 }
 
-                RepositoryFilters.FilterAndTake(studentsByCourse[courseName], givenFilter, studentsToTake.Value);
+                filter.FilterAndTake(studentsByCourse[courseName], givenFilter, studentsToTake.Value);
             }
         }
 
-        private static void ReadData(string fileName)
+        private void ReadData(string fileName)
         {
             var path = SessionData.CurrentPath + "\\" + fileName;
 
@@ -95,7 +118,7 @@ namespace BashSoft.Repository
             }
         }
 
-        private static bool IsQueryForCoursePossible(string courseName)
+        private bool IsQueryForCoursePossible(string courseName)
         {
             if (!studentsByCourse.ContainsKey(courseName))
             {
@@ -112,7 +135,7 @@ namespace BashSoft.Repository
             return false;
         }
 
-        private static bool IsQueryForStudentPossible(string courseName, string studentUserName)
+        private bool IsQueryForStudentPossible(string courseName, string studentUserName)
         {
             if (IsQueryForCoursePossible(courseName) && studentsByCourse[courseName].ContainsKey(studentUserName))
             {
@@ -124,7 +147,7 @@ namespace BashSoft.Repository
             return false;
         }
 
-        public static void GetStudentScoresFromCourse(string courseName, string username)
+        public void GetStudentScoresFromCourse(string courseName, string username)
         {
             if (IsQueryForStudentPossible(courseName, username))
             {
@@ -133,7 +156,7 @@ namespace BashSoft.Repository
             }
         }
 
-        public static void GetAllStudentsFromCourse(string courseName)
+        public void GetAllStudentsFromCourse(string courseName)
         {
             if (!IsQueryForCoursePossible(courseName))
                 return;

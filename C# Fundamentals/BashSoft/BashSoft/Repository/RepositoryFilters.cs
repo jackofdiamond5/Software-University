@@ -6,9 +6,9 @@ using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public static class RepositoryFilters
+    public class RepositoryFilter
     {
-        public static void FilterAndTake(Dictionary<string, List<int>> wantedData, string wantedFilter, int studentsToTake)
+        public void FilterAndTake(Dictionary<string, List<int>> wantedData, string wantedFilter, int studentsToTake)
         {
             switch (wantedFilter)
             {
@@ -27,7 +27,7 @@ namespace BashSoft.Repository
             }
         }
 
-        private static void FilterAndTake(Dictionary<string, List<int>> wantedData, Predicate<double> givenFilter,
+        private void FilterAndTake(Dictionary<string, List<int>> wantedData, Predicate<double> givenFilter,
             int studentsToTake)
         {
             var counterForPrinted = 0;

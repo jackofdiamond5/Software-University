@@ -6,9 +6,9 @@ using BashSoft.Static_data;
 
 namespace BashSoft.Judge
 {
-    public static class Tester
+    public class Tester
     {
-        public static void CompareContent(string userOutputPath, string expectedOutputPath)
+        public void CompareContent(string userOutputPath, string expectedOutputPath)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BashSoft.Judge
             }
         }
 
-        private static void PrintOutput(string[] mismatches, bool hasMismatch, string mismatchPath)
+        private void PrintOutput(string[] mismatches, bool hasMismatch, string mismatchPath)
         {
             if (!hasMismatch)
                 return;
@@ -53,7 +53,7 @@ namespace BashSoft.Judge
             OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
         }
 
-        private static string[] GetAllPossibleMismatches(IReadOnlyList<string> actualOutputLines, IReadOnlyList<string> expectedOutputLines, out bool hasMismatch)
+        private string[] GetAllPossibleMismatches(IReadOnlyList<string> actualOutputLines, IReadOnlyList<string> expectedOutputLines, out bool hasMismatch)
         {
             hasMismatch = false;
 
@@ -92,7 +92,7 @@ namespace BashSoft.Judge
             return mismatches;
         }
 
-        private static string GetMismatchPath(string expectedOutputPath)
+        private string GetMismatchPath(string expectedOutputPath)
         {
             var indexOf = expectedOutputPath.LastIndexOf("\\", StringComparison.InvariantCulture);
             var directoryPath = expectedOutputPath.Substring(0, indexOf);
