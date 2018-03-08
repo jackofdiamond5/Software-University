@@ -37,5 +37,13 @@
         public const string InvalidTakeQuantityParameter = "The value provided for parameter quantity was invalid!";
 
         public const string InvalidOrderCommand = "Invalid order command!";
+
+        public const string StudentAlreadyEnrolledInGivenCourse = "The {0} already exists in {1}.";
+
+        public const string NotEnrolledInCourse = "Student must be enrolled in a course before you can set their mark.";
+
+        public const string InvalidNumberOfScores = "The number of scores for the given course is greater than the possible.";
+
+        public const string InvalidScore = "Invalid score.";
     }
 }

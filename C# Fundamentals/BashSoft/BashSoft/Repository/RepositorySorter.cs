@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Collections.Generic;
+
 using BashSoft.IO;
 using BashSoft.Static_data;
 
@@ -7,24 +8,22 @@ namespace BashSoft.Repository
 {
     public class RepositorySorter
     {
-        public static void OrderAndTake(Dictionary<string, List<int>> wantedData, string comparison, int studentsToTake)
+        public void OrderAndTake(Dictionary<string, double> studentsWithMarks, string comparison, int studentsToTake)
         {
             comparison = comparison.ToLower();
             switch (comparison)
             {
                 case "ascending":
-                    PrintStudents(wantedData.OrderBy(
-                        x => x.Value.Sum())
+                    PrintStudents(studentsWithMarks
+                        .OrderBy(s => s.Value)
                         .Take(studentsToTake)
-                        .ToDictionary(
-                        p => p.Key, p => p.Value));
+                        .ToDictionary(p => p.Key, p => p.Value));
                     break;
                 case "descending":
-                    PrintStudents(wantedData.OrderByDescending(
-                            x => x.Value.Sum())
+                    PrintStudents(studentsWithMarks
+                        .OrderByDescending(s => s.Value)
                         .Take(studentsToTake)
-                        .ToDictionary(
-                            p => p.Key, p => p.Value));
+                        .ToDictionary(p => p.Key, p => p.Value));
                     break;
                 default:
                     OutputWriter.DisplayException(ExceptionMessages.InvalidComparisonQuery);
@@ -32,7 +31,7 @@ namespace BashSoft.Repository
             }
         }
 
-        private static void PrintStudents(Dictionary<string, List<int>> studentsSorted)
+        private void PrintStudents(Dictionary<string, double> studentsSorted)
         {
             foreach (var kvp in studentsSorted)
             {
