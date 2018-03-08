@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Diagnostics;
+
 using BashSoft.Judge;
 using BashSoft.Repository;
 using BashSoft.Static_data;
@@ -24,7 +26,31 @@ namespace BashSoft.IO
             var data = input.Split();
             var command = data[0];
 
-            switch (command)
+            try
+            {
+                ParseCommand(input, command, data);
+            }
+            catch (DirectoryNotFoundException dnfe)
+            {
+                OutputWriter.DisplayException(dnfe.Message);
+            }
+            catch (ArgumentOutOfRangeException aoore)
+            {
+                OutputWriter.DisplayException(aoore.Message);
+            }
+            catch (ArgumentException ae)
+            {
+                OutputWriter.DisplayException(ae.Message);
+            }
+            catch(Exception e)
+            {
+                OutputWriter.DisplayException(e.Message);
+            }
+        }
+
+        private void ParseCommand(string input, string command, string[] data)
+        {
+            switch (command.ToLower())
             {
                 case "open":
                     TryOpenFile(input, data);

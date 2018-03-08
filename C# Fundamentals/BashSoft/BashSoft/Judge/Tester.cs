@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
+
 using BashSoft.IO;
 using BashSoft.Static_data;
 
@@ -25,9 +26,9 @@ namespace BashSoft.Judge
                 PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (Exception)
+            catch (IOException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new IOException(ExceptionMessages.InvalidPath);
             }
         }
 
@@ -35,20 +36,13 @@ namespace BashSoft.Judge
         {
             if (!hasMismatch)
                 return;
-            
+
             foreach (var line in mismatches)
             {
                 OutputWriter.WriteMessageOnNewLine(line);
             }
 
-            try
-            {
-                File.WriteAllLines(mismatchPath, mismatches);
-            }
-            catch (Exception)
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-            }
+            File.WriteAllLines(mismatchPath, mismatches);
 
             OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
         }

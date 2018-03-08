@@ -1,50 +1,66 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
-using BashSoft.IO;
 using BashSoft.Static_data;
 
 namespace BashSoft.Models
 {
     public class Student
     {
-        public string username;
-        public Dictionary<string, Course> enrolledCorses;
-        public Dictionary<string, double> marksByCourseName;
+        private string userName;
+        private Dictionary<string, Course> enrolledCourses;
+        private Dictionary<string, double> marksByCourseName;
 
-        public Student(string username)
+        public Student(string userName)
         {
-            this.username = username;
-            this.enrolledCorses = new Dictionary<string, Course>();
-            this.marksByCourseName = new Dictionary<string, double>();
+            this.UserName = userName;
         }
+
+        public string UserName
+        {
+            get
+            {
+                return this.userName;
+            }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(this.userName), ExceptionMessages.NullOrEmptyValue);
+                }
+
+                this.userName = value;
+            }
+        }
+
+        public IReadOnlyDictionary<string, Course> EnrolledCourses => this.enrolledCourses;
+        
+        public IReadOnlyDictionary<string, double> MarksByCourseName => this.marksByCourseName;
+
 
         public void EnrollInCourse(Course course)
         {
-            if (this.enrolledCorses.ContainsKey(course.name))
+            if (this.EnrolledCourses.ContainsKey(course.Name))
             {
-                OutputWriter.DisplayException(string.Format(
+                throw new ArgumentException(string.Format(
                     ExceptionMessages.StudentAlreadyEnrolledInGivenCourse,
-                    this.username, course.name));
-
-                return;
+                    this.UserName, course.Name));
             }
 
-            this.enrolledCorses.Add(course.name, course);
+            this.enrolledCourses.Add(course.Name, course);
         }
 
         public void SetMarkOnCourse(string courseName, params int[] scores)
         {
-            if (!this.enrolledCorses.ContainsKey(courseName))
+            if (!this.EnrolledCourses.ContainsKey(courseName))
             {
-                OutputWriter.DisplayException(ExceptionMessages.NotEnrolledInCourse);
-                return;
+                throw new ArgumentNullException(nameof(courseName), ExceptionMessages.NotEnrolledInCourse);
             }
 
-            if(scores.Length > Course.NumberOfTasksOnExam)
+            if (scores.Length > Course.NumberOfTasksOnExam)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidNumberOfScores);
-                return;
+                throw new ArgumentOutOfRangeException(nameof(scores), ExceptionMessages.InvalidNumberOfScores);
             }
 
             this.marksByCourseName.Add(courseName, CalculateMark(scores));
@@ -52,7 +68,7 @@ namespace BashSoft.Models
 
         private double CalculateMark(int[] scores)
         {
-            var percentageOfSolvedExams = 
+            var percentageOfSolvedExams =
                 scores.Sum() / (double)(Course.NumberOfTasksOnExam * Course.MaxScoreExamTask);
 
             var mark = percentageOfSolvedExams * 4 + 2;

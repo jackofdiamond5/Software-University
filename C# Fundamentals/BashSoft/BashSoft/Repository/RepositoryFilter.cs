@@ -22,8 +22,7 @@ namespace BashSoft.Repository
                     FilterAndTake(studentsWithMarks, x => x < 2.5, studentsToTake);
                     break;
                 default:
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidStudentsFilter);
-                    break;
+                    throw new InvalidOperationException(ExceptionMessages.InvalidStudentsFilter);
             }
         }
 

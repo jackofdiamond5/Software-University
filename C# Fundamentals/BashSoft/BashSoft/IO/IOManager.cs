@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
+
 using BashSoft.Static_data;
 
 namespace BashSoft.IO
@@ -14,9 +15,9 @@ namespace BashSoft.IO
             {
                 Directory.CreateDirectory(path);
             }
-            catch (Exception)
+            catch (ArgumentException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
             }
         }
 
@@ -72,9 +73,9 @@ namespace BashSoft.IO
                     SessionData.CurrentPath = newPath;
 
                 }
-                catch (Exception)
+                catch (ArgumentOutOfRangeException)
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.UnableToGetHigherPartitionHierarchy);
+                    throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
                 }
             }
             else
@@ -89,8 +90,7 @@ namespace BashSoft.IO
         {
             if (!Directory.Exists(absolutePath))
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                return;
+                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
             }
 
             SessionData.CurrentPath = absolutePath;
