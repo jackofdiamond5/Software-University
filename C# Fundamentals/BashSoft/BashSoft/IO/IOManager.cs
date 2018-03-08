@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using BashSoft.Static_data;
+using BashSoft.Exceptions;
 
 namespace BashSoft.IO
 {
@@ -17,7 +18,7 @@ namespace BashSoft.IO
             }
             catch (ArgumentException)
             {
-                throw new ArgumentException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException();
             }
         }
 
@@ -90,7 +91,7 @@ namespace BashSoft.IO
         {
             if (!Directory.Exists(absolutePath))
             {
-                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
 
             SessionData.CurrentPath = absolutePath;

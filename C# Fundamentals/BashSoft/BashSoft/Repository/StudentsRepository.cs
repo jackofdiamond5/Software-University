@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using BashSoft.IO;
 using BashSoft.Models;
 using BashSoft.Static_data;
+using BashSoft.Exceptions;
 
 namespace BashSoft.Repository
 {
@@ -22,7 +23,7 @@ namespace BashSoft.Repository
         {
             if (this.IsDataInitialized)
             {
-                throw new ArgumentException(ExceptionMessages.DataAlreadyInitializedException);
+                throw new DataAlreadyInitializedException();
             }
 
             this.filter = filter;
@@ -33,7 +34,7 @@ namespace BashSoft.Repository
         {
             if (!this.IsDataInitialized)
             {
-                throw new ArgumentException(ExceptionMessages.DataNotInitializedException);
+                throw new DataNotInitializedException();
             }
 
             this.students = null;
@@ -45,7 +46,7 @@ namespace BashSoft.Repository
         {
             if (this.IsDataInitialized)
             {
-                throw new ArgumentException(ExceptionMessages.DataAlreadyInitializedException);
+                throw new DataAlreadyInitializedException();
             }
 
             OutputWriter.WriteMessageOnNewLine("Reading data...");
@@ -150,7 +151,7 @@ namespace BashSoft.Repository
             }
             else
             {
-                throw new InvalidOperationException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
         }
 
@@ -167,8 +168,8 @@ namespace BashSoft.Repository
                 return true;
             }
 
-            OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedException);
-            return false;
+            throw new DataNotInitializedException();
+            //return false;
         }
 
         private bool IsQueryForStudentPossible(string courseName, string studentUserName)

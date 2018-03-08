@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using BashSoft.IO;
 using BashSoft.Static_data;
+using BashSoft.Exceptions;
 
 namespace BashSoft.Judge
 {
@@ -28,7 +29,7 @@ namespace BashSoft.Judge
             }
             catch (IOException)
             {
-                throw new IOException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
         }
 

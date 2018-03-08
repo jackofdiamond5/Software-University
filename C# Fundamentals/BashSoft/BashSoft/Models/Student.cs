@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using BashSoft.Static_data;
+using BashSoft.Exceptions;
 
 namespace BashSoft.Models
 {
@@ -27,7 +28,7 @@ namespace BashSoft.Models
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException(nameof(this.userName), ExceptionMessages.NullOrEmptyValue);
+                    throw new InvalidStringException();
                 }
 
                 this.userName = value;
@@ -43,9 +44,7 @@ namespace BashSoft.Models
         {
             if (this.EnrolledCourses.ContainsKey(course.Name))
             {
-                throw new ArgumentException(string.Format(
-                    ExceptionMessages.StudentAlreadyEnrolledInGivenCourse,
-                    this.UserName, course.Name));
+                throw new DuplicateEntryInStructureException(this.UserName, course.Name);
             }
 
             this.enrolledCourses.Add(course.Name, course);
@@ -55,7 +54,7 @@ namespace BashSoft.Models
         {
             if (!this.EnrolledCourses.ContainsKey(courseName))
             {
-                throw new ArgumentNullException(nameof(courseName), ExceptionMessages.NotEnrolledInCourse);
+                throw new CourseNotFoundException();
             }
 
             if (scores.Length > Course.NumberOfTasksOnExam)
