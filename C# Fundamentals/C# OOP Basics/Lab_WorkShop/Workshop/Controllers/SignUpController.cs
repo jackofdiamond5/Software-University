@@ -41,8 +41,6 @@
                         case SignUpStatus.DetailsError:
                             this.ErrorMessage = USERNAME_TAKEN_ERROR;
                             return MenuState.SignUpError;
-
-
                     }
                     break;
 
