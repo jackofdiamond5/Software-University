@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CustomList<T> : IEnumerable, IEnumerable<T>
+public class CustomList<T> : IEnumerable<T>
     where T : IComparable
 {
     private IList<T> list;
@@ -58,7 +58,7 @@ public class CustomList<T> : IEnumerable, IEnumerable<T>
         var sorted = list.OrderBy(t => t).ToList();
         var customList = new CustomList<T>();
 
-        foreach(var item in sorted)
+        foreach (var item in sorted)
         {
             customList.Add(item);
         }
@@ -68,11 +68,16 @@ public class CustomList<T> : IEnumerable, IEnumerable<T>
 
     public IEnumerator GetEnumerator()
     {
-        return ((IEnumerable)list).GetEnumerator();
+        return list.GetEnumerator();
     }
 
     IEnumerator<T> IEnumerable<T>.GetEnumerator()
     {
         return list.GetEnumerator();
+
+        //for (var i = 0; i < this.list.Count; i++)
+        //{
+        //    yield return this.list[i];
+        //}
     }
 }
