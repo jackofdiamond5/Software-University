@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 4 - Custom List", "Ex. 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 5 - Tuple", "Ex. 5 - Tuple\Ex. 5 - Tuple.csproj", "{B4E263A5-2F83-4CAB-8BDE-9CB89A1F1A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 6 - Threeuple", "Ex. 6 -Threeuple\Ex. 6 - Threeuple.csproj", "{53909F8D-9627-40EA-B05C-F9B447201A1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 6 - Threeuple", "Ex. 6 - Threeuple\Ex. 6 - Threeuple.csproj", "{53909F8D-9627-40EA-B05C-F9B447201A1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
