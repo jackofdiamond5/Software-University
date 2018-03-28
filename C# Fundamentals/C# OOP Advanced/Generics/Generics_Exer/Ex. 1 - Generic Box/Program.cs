@@ -5,13 +5,14 @@ public class Program
 {
     static void Main()
     {
-        GenericBoxOfInt();
+        GenericBoxOfStrings();
+        GenericBoxOfIntegers();
     }
 
     /// <summary>
     /// Task 2
     /// </summary>
-    public static void GenericBoxOfInt()
+    public static void GenericBoxOfIntegers()
     {
         var n = int.Parse(Console.ReadLine());
 
@@ -33,7 +34,7 @@ public class Program
     /// <summary>
     /// Task 1
     /// </summary>
-    public static void GenericBoxOfString()
+    public static void GenericBoxOfStrings()
     {
         var n = int.Parse(Console.ReadLine());
 
