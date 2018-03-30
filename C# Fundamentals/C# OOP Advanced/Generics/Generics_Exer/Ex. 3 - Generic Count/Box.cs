@@ -14,7 +14,7 @@ public class Box<T> : IComparable, IComparable<T>
     {
         if (this.ValueHolder.GetType() != other.GetType())
         {
-            return 0;
+            throw new ArgumentException();
         }
 
         if (this.ValueHolder.CompareTo(other) == 0)
@@ -39,7 +39,7 @@ public class Box<T> : IComparable, IComparable<T>
     {
         if (this.ValueHolder.GetType() != obj.GetType())
         {
-            return 0;
+            throw new ArgumentException();
         }
 
         if (this.ValueHolder.CompareTo(obj) == 0)
