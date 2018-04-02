@@ -56,7 +56,7 @@
         {
             if (health <= 0)
             {
-                throw new ArgumentException("Initial health should be positive.");
+                throw new InvalidOperationException("Initial health should be positive.");
             }
 
             this.Health = health;

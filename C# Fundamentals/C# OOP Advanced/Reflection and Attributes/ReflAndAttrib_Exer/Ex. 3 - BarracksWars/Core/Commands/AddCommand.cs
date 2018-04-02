@@ -1,13 +1,34 @@
 ﻿namespace _03BarracksFactory.Core.Commands
 {
-    using System;
-    using _03BarracksFactory.Contracts;
+    using Contracts;
+    using Attributes;
 
     public class AddCommand : Command
     {
-        protected AddCommand(string[] data, IRepository repository, IUnitFactory unitFactory) 
-            : base(data, repository, unitFactory)
+        [Inject]
+        IRepository repository;
+        [Inject]
+        IUnitFactory unitFactory;
+        
+        public AddCommand(string[] data, IRepository repository, IUnitFactory unitFactory) 
+            : base(data)
         {
+            this.Repository = repository;
+            this.UnitFactory = unitFactory;
+        }
+
+        public IRepository Repository
+        {
+            get { return this.repository; }
+
+            private set { this.repository = value; }
+        }
+
+        public IUnitFactory UnitFactory
+        {
+            get { return this.unitFactory; }
+
+            private set { this.unitFactory = value; }
         }
 
         public override string Execute()

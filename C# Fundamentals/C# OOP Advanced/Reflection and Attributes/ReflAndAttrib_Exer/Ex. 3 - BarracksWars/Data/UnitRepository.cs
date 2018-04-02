@@ -1,9 +1,11 @@
 ﻿namespace _03BarracksFactory.Data
 {
     using System;
-    using Contracts;
-    using System.Collections.Generic;
     using System.Text;
+    using System.Collections.Generic;
+
+    using Contracts;
+
     class UnitRepository : IRepository
     {
         private IDictionary<string, int> amountOfUnits;
@@ -42,8 +44,13 @@
 
         public void RemoveUnit(string unitType)
         {
-            //TODO: implement for Problem 4
-            throw new NotImplementedException();
+            if (this.amountOfUnits.ContainsKey(unitType))
+            {
+                this.amountOfUnits[unitType]--;
+                return;
+            }
+
+            throw new InvalidOperationException("No such units in repository.");
         }
     }
 }
