@@ -8,4 +8,4 @@
    - [Photo Share System](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20DB%20Fundamentals/DB%20Advanced%20-%20EF%20Core/PhotoShare)
 2. [C# Fundamentals](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20Fundamentals)
    - [BashSoft](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20Fundamentals/BashSoft)
-   - [C# OOP Basics Workshop](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20Fundamentals/C%23%20OOP%20Basics/Lab_WorkShop)
+   - [Workshop](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20Fundamentals/C%23%20OOP%20Basics/Lab_WorkShop)
