@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Ex. 2 - Extended Database\Ex. 2 - Extended Database.csproj" />
     <ProjectReference Include="..\Ex. 3 - List Iterator\Ex. 3 - List Iterator.csproj" />
     <ProjectReference Include="..\Ex. 4 - Bubble Sort\Ex. 4 - Bubble Sort.csproj" />
+    <ProjectReference Include="..\Ex. 5 - CustomLinkedList\CustomLinkedList\Ex. 5 - CustomLinkedList.csproj" />
   </ItemGroup>
 
 </Project>
