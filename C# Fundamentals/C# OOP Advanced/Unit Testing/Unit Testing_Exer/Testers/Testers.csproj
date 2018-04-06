@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ex. 1 - Database\Ex. 1 - Database.csproj" />
+    <ProjectReference Include="..\Ex. 2 - Extended Database\Ex. 2 - Extended Database.csproj" />
+    <ProjectReference Include="..\Ex. 3 - List Iterator\Ex. 3 - List Iterator.csproj" />
+    <ProjectReference Include="..\Ex. 4 - Bubble Sort\Ex. 4 - Bubble Sort.csproj" />
+  </ItemGroup>
+
+</Project>
