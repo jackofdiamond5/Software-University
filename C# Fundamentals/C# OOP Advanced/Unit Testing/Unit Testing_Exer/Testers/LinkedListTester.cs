@@ -4,121 +4,151 @@ using CustomLinkedList;
 
 public class LinkedListTester
 {
+    DynamicList<int> list;
+
+    [SetUp]
+    public void CreateList()
+    {
+        this.list = new DynamicList<int>();
+    }
+
+    [TearDown]
+    public void DestroyList()
+    {
+        this.list = null;
+    }
+
     [Test]
     public void AccessingElementAtIndexMoreOrEqualtoElementsCountThrowsException()
     {
-        var list = new DynamicList<int>();
+        var outOfRangeIndex = 3;
 
         list.Add(1);
         list.Add(2);
         list.Add(3);
 
-        Assert.That(() => list[3],
-            Throws.Exception.With.Message.EndsWith("Invalid index: " + 3));
+        Assert.That(() => list[outOfRangeIndex],
+            Throws.Exception
+            .With
+            .Message
+            .EndsWith("Invalid index: " + outOfRangeIndex));
     }
 
     [Test]
     public void AccessingElementAtNegativeIndexThrowsException()
     {
-        var list = new DynamicList<int>();
+        var outOfRangeIndex = -1;
 
-        Assert.That(() => list[-1],
-            Throws.Exception.With.Message.EndsWith("Invalid index: " + -1));
+        Assert.That(() => list[outOfRangeIndex],
+            Throws.Exception
+            .With
+            .Message
+            .EndsWith("Invalid index: " + outOfRangeIndex));
     }
 
     [Test]
     public void AddingElementPutsItAtTheEndOfTheList()
     {
-        var list = new DynamicList<int>();
+        var expectedValue = 2;
 
         list.Add(1);
         list.Add(2);
 
         Assert.That(() => list[1],
-            Is.EqualTo(2));
+            Is.EqualTo(expectedValue));
     }
 
     [Test]
     public void AttemptingToRemoveItemAtIndexGreaterOrEqualToElementsCountThrowsException()
     {
-        var list = new DynamicList<int>();
+        var outOfRangeIndex = 3;
 
         list.Add(1);
         list.Add(2);
         list.Add(3);
         
-        Assert.That(() => list.RemoveAt(3),
-            Throws.Exception.With.Message.EndsWith("Invalid index: " + 3));
+        Assert.That(() => list.RemoveAt(outOfRangeIndex),
+            Throws.Exception
+            .With
+            .Message
+            .EndsWith("Invalid index: " + outOfRangeIndex));
     }
 
     [Test]
     public void AttemptingToRemoveElementAtNegativeIndexThrowsException()
     {
-        var list = new DynamicList<int>();
+        var outOfRangeIndex = -1;
 
-        Assert.That(() => list.RemoveAt(-1),
-           Throws.Exception.With.Message.EndsWith("Invalid index: " + -1));
+        Assert.That(() => list.RemoveAt(outOfRangeIndex),
+           Throws.Exception
+           .With
+           .Message
+           .EndsWith("Invalid index: " + outOfRangeIndex));
     }
 
     [Test]
     public void RemoveAt_RemovesItemAtGivenIndex()
     {
-        var list = new DynamicList<int>();
+        var indexToRemoveAt = 1;
+        var expectedValue = 3;
 
         list.Add(1);
         list.Add(2);
         list.Add(3);
 
-        list.RemoveAt(1);
+        list.RemoveAt(indexToRemoveAt);
 
-        Assert.That(list[1], Is.EqualTo(3));
+        Assert.That(list[indexToRemoveAt], 
+            Is.EqualTo(expectedValue));
     }
 
     [Test]
     public void Remove_RemovesGivenElement()
     {
-        var list = new DynamicList<int>();
-
         list.Add(1);
         list.Add(2);
         list.Add(3);
 
-        var removed = list.Remove(3);
+        var indexToAttemptAccessing = 2;
+        var elementToRemove = 3;
 
-        Assert.That(() => list[2], Throws.Exception);
+        var removed = list.Remove(elementToRemove);
+
+        Assert.That(() => list[indexToAttemptAccessing],
+            Throws.Exception);
     }
 
     [Test]
     public void Remove_ReturnsMinusOneIfElementNotFound()
     {
-        var list = new DynamicList<int>();
+        var expectedReturnValue = -1;
 
         list.Add(1);
 
         var result = list.Remove(2);
 
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(expectedReturnValue));
     }
 
     [Test]
     public void IndexOf_ReturnsFirstIndexOfGivenElement()
     {
-        var list = new DynamicList<int>();
-
         list.Add(1);
         list.Add(2);
         list.Add(3);
         list.Add(3);
-        
+
+        var expectedReturnValue = 2;
+
         var result = list.IndexOf(3);
 
-        Assert.That(result, Is.EqualTo(2));
+        Assert.That(result, Is.EqualTo(expectedReturnValue));
     }
 
     [Test]
     public void IndexOf_ReturnsMinusOneIfElementNotFound()
     {
-        var list = new DynamicList<int>();
+        var expectedReturnValue = -1;
 
         list.Add(1);
         list.Add(2);
@@ -126,14 +156,12 @@ public class LinkedListTester
 
         var result = list.IndexOf(4);
 
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(expectedReturnValue));
     }
 
     [Test]
     public void Contains_ReturnsTrueIfElementExistsWithinList()
     {
-        var list = new DynamicList<int>();
-
         list.Add(1);
 
         Assert.That(() => list.Contains(1).Equals(true));
@@ -142,8 +170,6 @@ public class LinkedListTester
     [Test]
     public void Contains_ReturnsFalseIfElementDoesNotExistWithinList()
     {
-        var list = new DynamicList<int>();
-
         list.Add(1);
 
         Assert.That(() => list.Contains(2).Equals(false));
