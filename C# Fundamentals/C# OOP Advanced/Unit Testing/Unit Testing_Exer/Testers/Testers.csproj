@@ -17,6 +17,7 @@
     <ProjectReference Include="..\Ex. 3 - List Iterator\Ex. 3 - List Iterator.csproj" />
     <ProjectReference Include="..\Ex. 4 - Bubble Sort\Ex. 4 - Bubble Sort.csproj" />
     <ProjectReference Include="..\Ex. 5 - CustomLinkedList\CustomLinkedList\Ex. 5 - CustomLinkedList.csproj" />
+    <ProjectReference Include="..\Ex. 6 - TIre Pressure\Ex. 6 - TIre Pressure.csproj" />
   </ItemGroup>
 
 </Project>

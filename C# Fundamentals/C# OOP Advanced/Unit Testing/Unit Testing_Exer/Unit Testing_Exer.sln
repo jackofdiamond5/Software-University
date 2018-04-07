@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 1 - Database", "Ex. 1 - Database\Ex. 1 - Database.csproj", "{0EA40C08-FD4B-4D2A-9F46-D5BFDA92B804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex. 1 - Database", "Ex. 1 - Database\Ex. 1 - Database.csproj", "{0EA40C08-FD4B-4D2A-9F46-D5BFDA92B804}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 2 - Extended Database", "Ex. 2 - Extended Database\Ex. 2 - Extended Database.csproj", "{D9AFC8AF-1283-4323-9524-DDA60EFBB705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex. 2 - Extended Database", "Ex. 2 - Extended Database\Ex. 2 - Extended Database.csproj", "{D9AFC8AF-1283-4323-9524-DDA60EFBB705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 3 - List Iterator", "Ex. 3 - List Iterator\Ex. 3 - List Iterator.csproj", "{2286CFCF-C5DF-41D9-B22F-690122FEFB78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex. 3 - List Iterator", "Ex. 3 - List Iterator\Ex. 3 - List Iterator.csproj", "{2286CFCF-C5DF-41D9-B22F-690122FEFB78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testers", "Testers\Testers.csproj", "{4C1A04C8-A7B5-440C-9F4F-05C54AB8A4B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 4 - Bubble Sort", "Ex. 4 - Bubble Sort\Ex. 4 - Bubble Sort.csproj", "{361D3C5B-75F2-4457-8CB0-1C801FB5326A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex. 4 - Bubble Sort", "Ex. 4 - Bubble Sort\Ex. 4 - Bubble Sort.csproj", "{361D3C5B-75F2-4457-8CB0-1C801FB5326A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex. 5 - CustomLinkedList", "Ex. 5 - CustomLinkedList\CustomLinkedList\Ex. 5 - CustomLinkedList.csproj", "{C511A248-7584-4341-91D3-9C48D999202C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex. 6 - TIre Pressure", "Ex. 6 - TIre Pressure\Ex. 6 - TIre Pressure.csproj", "{0F2420E6-59EF-4623-B84A-94BA3B857690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C511A248-7584-4341-91D3-9C48D999202C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C511A248-7584-4341-91D3-9C48D999202C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C511A248-7584-4341-91D3-9C48D999202C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2420E6-59EF-4623-B84A-94BA3B857690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2420E6-59EF-4623-B84A-94BA3B857690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2420E6-59EF-4623-B84A-94BA3B857690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2420E6-59EF-4623-B84A-94BA3B857690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
