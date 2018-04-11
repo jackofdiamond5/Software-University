@@ -27,6 +27,11 @@
                 throw new InvalidOperationException("Menu not found!");
             }
 
+            if (!typeof(IMenu).IsInstanceOfType(menuName))
+            {
+                throw new InvalidOperationException($"{menuName} is not a menu!");
+            }
+
             var ctorParams = menuType.GetConstructors().First().GetParameters();
             var args = new object[] { ctorParams.Length };
 
