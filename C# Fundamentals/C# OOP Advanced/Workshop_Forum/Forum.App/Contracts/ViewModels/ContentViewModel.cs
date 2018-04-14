@@ -20,7 +20,7 @@
 
             var lines = new List<string>();
 
-            for(var i = 0; i < content.Length; i += lineLength)
+            for (var i = 0; i < content.Length; i += lineLength)
             {
                 var row = contentChars.Skip(i).Take(lineLength).ToArray();
                 var rowString = string.Join("", row);

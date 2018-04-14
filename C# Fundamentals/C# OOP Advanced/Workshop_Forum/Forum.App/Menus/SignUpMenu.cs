@@ -1,5 +1,7 @@
 ﻿namespace Forum.App.Menus
 {
+    using System;
+
 	using Models;
 	using Contracts;
 
@@ -11,16 +13,55 @@
 		private bool error;
 
 		private ILabelFactory labelFactory;
+        private ICommandFactory commandFactory;
+        private IForumReader forumReader;
 
-		//TODO: Inject Dependencies
-		
+        public SignUpMenu(ILabelFactory labelFactory, ICommandFactory commandFactory, IForumReader forumReader)
+        {
+            this.labelFactory = labelFactory;
+            this.commandFactory = commandFactory;
+            this.forumReader = forumReader;
+
+            this.Open();
+        }
+        
 		private string UsernameInput => this.Buttons[0].Text.TrimStart();
 
 		private string PasswordInput => this.Buttons[1].Text.TrimStart();
 
 		private string ErrorMessage { get; set; }
 
-		protected override void InitializeStaticLabels(Position consoleCenter)
+        public override IMenu ExecuteCommand()
+        {
+            if (this.CurrentOption.IsField)
+            {
+                var fieldInput = " " + this.forumReader.ReadLine(this.CurrentOption.Position.Left + 1,
+                    this.CurrentOption.Position.Top);
+
+                this.Buttons[this.currentIndex] = this.labelFactory.CreateButton(
+                    fieldInput, this.CurrentOption.Position, this.CurrentOption.IsHidden, this.CurrentOption.IsField);
+
+                return this;
+            }
+
+            try
+            {
+                var commandName = string.Join("", this.CurrentOption.Text.Split());
+                var command = this.commandFactory.CreateCommand(commandName);
+                var view = command.Execute(this.UsernameInput, this.PasswordInput);
+
+                return this;
+            }
+            catch(Exception e)
+            {
+                this.error = true;
+                this.ErrorMessage = e.Message;
+                this.Open();
+                return this;
+            }
+        }
+
+        protected override void InitializeStaticLabels(Position consoleCenter)
 		{
 			string[] labelContents = new string[] { this.ErrorMessage, "Name:", "Password:" };
 
@@ -64,11 +105,6 @@
 				bool isField = string.IsNullOrWhiteSpace(buttonContent);
 				this.Buttons[i] = this.labelFactory.CreateButton(buttonContent, buttonPositions[i], false, isField);
 			}
-		}
-
-		public override IMenu ExecuteCommand()
-		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

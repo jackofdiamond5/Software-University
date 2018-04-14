@@ -7,7 +7,7 @@
     {
         private const int lineLength = 37;
 
-        public ContentViewModel(string content)
+        public CreateViewModel(string content)
         {
             this.Content = this.GetLines(content);
         }

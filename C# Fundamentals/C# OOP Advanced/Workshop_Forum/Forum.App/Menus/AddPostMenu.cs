@@ -1,25 +1,66 @@
 ﻿namespace Forum.App.Menus
 {
+    using System;
+
 	using Models;
 	using Contracts;
 
-	public class AddPostMenu : Menu, ITextAreaMenu
+    public class AddPostMenu : Menu, ITextAreaMenu
 	{
 		private ILabelFactory labelFactory;
 		private ITextAreaFactory textAreaFactory;
 		private IForumReader reader;
+        private ICommandFactory commandFactory;
 
 		private bool error;
 
-		//TODO: Inject Dependencies
+        public AddPostMenu(ILabelFactory labelFactory, ITextAreaFactory textAreaFactory,
+            IForumReader forumReader, ICommandFactory commandFactory)
+        {
+            this.labelFactory = labelFactory;
+            this.textAreaFactory = textAreaFactory;
+            this.reader = forumReader;
+            this.commandFactory = commandFactory;
+
+            this.InitializeTextArea();
+            this.Open();
+        }
 
 		private string TitleInput => this.Buttons[0].Text.TrimStart();
 
 		private string CategoryInput => this.Buttons[1].Text.TrimStart();
 		
 		public ITextInputArea TextArea { get; private set; }
+        
+        public override IMenu ExecuteCommand()
+        {
+            if (this.CurrentOption.IsField)
+            {
+                var fieldInpit = " " + this.reader.ReadLine(this.CurrentOption.Position.Left + 1, this.CurrentOption.Position.Top);
 
-		protected override void InitializeStaticLabels(Position consoleCenter)
+                this.Buttons[this.currentIndex] = this.labelFactory.CreateButton(fieldInpit, this.CurrentOption.Position, 
+                    this.CurrentOption.IsHidden, this.CurrentOption.IsField);
+
+                return this;
+            }
+
+            try
+            {
+                var commandName = string.Join("", this.CurrentOption.Text.Split());
+                var command = this.commandFactory.CreateCommand(commandName);
+                var view = command.Execute(this.TitleInput, this.CategoryInput, this.TextArea.Text);
+
+                return view;
+            }
+            catch(Exception)
+            {
+                this.error = true;
+                this.InitializeStaticLabels(Position.ConsoleCenter());
+                return this;
+            }
+        }
+
+        protected override void InitializeStaticLabels(Position consoleCenter)
 		{
 			string[] labelContents = new string[] { "All fields must be filled!", "Title:", "Category:", "", "" };
 			Position[] labelPositions = new Position[]
@@ -74,11 +115,6 @@
 		{
 			Position consoleCenter = Position.ConsoleCenter();
 			this.TextArea = this.textAreaFactory.CreateTextArea(this.reader, consoleCenter.Left - 18, consoleCenter.Top - 7);
-		}
-
-		public override IMenu ExecuteCommand()
-		{
-			throw new System.NotImplementedException();
 		}
 	}
 }

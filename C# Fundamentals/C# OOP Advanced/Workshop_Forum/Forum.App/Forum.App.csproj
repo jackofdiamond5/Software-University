@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Contracts\ViewModels\ContentViewModel.cs" />
+    <Compile Include="Commands\ViewPostMenuCommand.cs" />
   </ItemGroup>
 
   <ItemGroup>

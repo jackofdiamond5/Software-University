@@ -15,11 +15,21 @@
 		private ISession session;
 
 		private IForumViewEngine viewEngine;
-		
+        private ICommandFactory commandFactory;
+        private IPostService postService;
+
 		private int postId;
 		private IPostViewModel post;
 
-		//TODO: Inject Dependencies
+        public ViewPostMenu(IPostService postService, ILabelFactory labelFactory, ISession session, ICommandFactory commandFactory,
+            IForumViewEngine viewEngine)
+        {
+            this.postService = postService;
+            this.labelFactory = labelFactory;
+            this.session = session;
+            this.commandFactory = commandFactory;
+            this.viewEngine = viewEngine;
+        }
 
 		public override void Open()
 		{		
@@ -59,7 +69,29 @@
 			this.Labels = this.Labels.Concat(replyLabels).ToArray();
 		}
 
-		protected override void InitializeStaticLabels(Position consoleCenter)
+        public void SetId(int id)
+        {
+            this.postId = id;
+            this.Open();
+        }
+
+        private void LoadPost()
+        {
+            this.post = this.postService.GetPostViewModel(this.postId);
+        }
+
+        public override IMenu ExecuteCommand()
+        {
+            var commandName = string.Join("", this.CurrentOption.Text.Split());
+            var command = commandFactory.CreateCommand(commandName);
+            var menu = command.Execute(this.postId.ToString());
+
+            this.viewEngine.ResetBuffer();
+
+            return menu;
+        }
+
+        protected override void InitializeStaticLabels(Position consoleCenter)
 		{
 			Position titlePosition =
 				new Position(consoleCenter.Left - this.post.Title.Length / 2, consoleCenter.Top - 10);
@@ -95,21 +127,6 @@
 				new Position(consoleCenter.Left + 15, consoleCenter.Top - 3));
 			this.Buttons[1] = this.labelFactory.CreateButton("Add Reply",
 				new Position(consoleCenter.Left + 10, consoleCenter.Top - 4), !this.session.IsLoggedIn);
-		}
-
-		public void SetId(int id)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		private void LoadPost()
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public override IMenu ExecuteCommand()
-		{
-			throw new System.NotImplementedException();
 		}
 
 		private void ExtendBuffer()
