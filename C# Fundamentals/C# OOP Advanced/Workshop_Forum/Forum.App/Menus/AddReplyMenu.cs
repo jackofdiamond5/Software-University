@@ -1,88 +1,100 @@
 ﻿namespace Forum.App.Menus
 {
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-	using Models;
-	using Contracts;
+    using Models;
+    using Contracts;
 
-	public class AddReplyMenu : Menu, ITextAreaMenu, IIdHoldingMenu
+    public class AddReplyMenu : Menu, ITextAreaMenu, IIdHoldingMenu
     {
-		private const int authorOffset = 8;
-		private const int leftOffset = 18;
-		private const int topOffset = 7;
-		private const int buttonOffset = 14;
+        private const int authorOffset = 8;
+        private const int leftOffset = 18;
+        private const int topOffset = 7;
+        private const int buttonOffset = 14;
 
-		private ILabelFactory labelFactory;
-		private ITextAreaFactory textAreaFactory;
-		private IForumReader reader;
+        private ILabelFactory labelFactory;
+        private ITextAreaFactory textAreaFactory;
+        private IForumReader reader;
+        private ICommandFactory commandFactory;
 
-		private bool error;
-		private IPostViewModel post;
+        private bool error;
+        private IPostViewModel post;
 
-		//TODO: Inject Dependencies
+        public AddReplyMenu(ILabelFactory labelFactory, ITextAreaFactory textAreaFactory,
+            IForumReader forumReader, ICommandFactory commandFactory)
+        {
+            this.labelFactory = labelFactory;
+            this.textAreaFactory = textAreaFactory;
+            this.reader = forumReader;
+            this.commandFactory = commandFactory;
 
-		public ITextInputArea TextArea { get; private set; }
+            this.InitializeTextArea();
+            this.Open();
+        }
 
-		protected override void InitializeStaticLabels(Position consoleCenter)
-		{
-			Position errorPosition = 
-				new Position(consoleCenter.Left - this.post.Title.Length / 2, consoleCenter.Top - 12);
-			Position titlePosition =
-				new Position(consoleCenter.Left - this.post.Title.Length / 2, consoleCenter.Top - 10);
-			Position authorPosition =
-				new Position(consoleCenter.Left - this.post.Author.Length, consoleCenter.Top - 9);
+        public ITextInputArea TextArea { get; private set; }
 
-			var labels = new List<ILabel>()
-			{
-				this.labelFactory.CreateLabel("Cannot add an empty reply!", errorPosition, !error),
-				this.labelFactory.CreateLabel(this.post.Title, titlePosition),
-				this.labelFactory.CreateLabel($"Author: {this.post.Author}", authorPosition),
-			};
+        public override IMenu ExecuteCommand()
+        {
+            throw new NotImplementedException();
+        }
 
-			int leftPosition = consoleCenter.Left - leftOffset;
+        public void SetId(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-			int lineCount = this.post.Content.Length;
+        protected override void InitializeStaticLabels(Position consoleCenter)
+        {
+            Position errorPosition =
+                new Position(consoleCenter.Left - this.post.Title.Length / 2, consoleCenter.Top - 12);
+            Position titlePosition =
+                new Position(consoleCenter.Left - this.post.Title.Length / 2, consoleCenter.Top - 10);
+            Position authorPosition =
+                new Position(consoleCenter.Left - this.post.Author.Length, consoleCenter.Top - 9);
 
-			// Add post contents
-			for (int i = 0; i < lineCount; i++)
-			{
-				Position position = new Position(leftPosition, consoleCenter.Top - (topOffset - i));
-				ILabel label = this.labelFactory.CreateLabel(this.post.Content[i], position);
-				labels.Add(label);
-			}
+            var labels = new List<ILabel>()
+            {
+                this.labelFactory.CreateLabel("Cannot add an empty reply!", errorPosition, !error),
+                this.labelFactory.CreateLabel(this.post.Title, titlePosition),
+                this.labelFactory.CreateLabel($"Author: {this.post.Author}", authorPosition),
+            };
 
-			this.Labels = labels.ToArray();
-		}
+            int leftPosition = consoleCenter.Left - leftOffset;
 
-		protected override void InitializeButtons(Position consoleCenter)
-		{
-			int left = consoleCenter.Left + buttonOffset;
-			int top = consoleCenter.Top - (topOffset - this.post.Content.Length);
+            int lineCount = this.post.Content.Length;
 
-			this.Buttons = new IButton[3];
+            // Add post contents
+            for (int i = 0; i < lineCount; i++)
+            {
+                Position position = new Position(leftPosition, consoleCenter.Top - (topOffset - i));
+                ILabel label = this.labelFactory.CreateLabel(this.post.Content[i], position);
+                labels.Add(label);
+            }
 
-			this.Buttons[0] = this.labelFactory.CreateButton("Write", new Position(left, top + 1));
-			this.Buttons[1] = this.labelFactory.CreateButton("Submit", new Position(left - 1, top + 11));
-			this.Buttons[2] = this.labelFactory.CreateButton("Back", new Position(left + 1, top + 12));
-		}
+            this.Labels = labels.ToArray();
+        }
 
-		private void InitializeTextArea()
-		{
-			Position consoleCenter = Position.ConsoleCenter();
+        protected override void InitializeButtons(Position consoleCenter)
+        {
+            int left = consoleCenter.Left + buttonOffset;
+            int top = consoleCenter.Top - (topOffset - this.post.Content.Length);
 
-			int top = consoleCenter.Top - (topOffset + this.post.Content.Length) + 5;
+            this.Buttons = new IButton[3];
 
-			this.TextArea = this.textAreaFactory.CreateTextArea(this.reader, consoleCenter.Left - 18, top, false);
-		}
+            this.Buttons[0] = this.labelFactory.CreateButton("Write", new Position(left, top + 1));
+            this.Buttons[1] = this.labelFactory.CreateButton("Submit", new Position(left - 1, top + 11));
+            this.Buttons[2] = this.labelFactory.CreateButton("Back", new Position(left + 1, top + 12));
+        }
 
-		public void SetId(int id)
-		{
-			throw new System.NotImplementedException();
-		}
+        private void InitializeTextArea()
+        {
+            Position consoleCenter = Position.ConsoleCenter();
 
-		public override IMenu ExecuteCommand()
-		{
-			throw new System.NotImplementedException();
-		}
-	}
+            int top = consoleCenter.Top - (topOffset + this.post.Content.Length) + 5;
+
+            this.TextArea = this.textAreaFactory.CreateTextArea(this.reader, consoleCenter.Left - 18, top, false);
+        }
+    }
 }
