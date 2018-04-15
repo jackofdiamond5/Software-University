@@ -37,6 +37,11 @@ namespace BashSoft.Models
 
         public IReadOnlyDictionary<string, IStudent> StudentsByName => (IReadOnlyDictionary<string, IStudent>)studentsByName;
 
+        public int CompareTo(ICourse other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
+
         public void EnrollStudent(IStudent student)
         {
             if (this.StudentsByName.ContainsKey(student.UserName))
@@ -45,6 +50,11 @@ namespace BashSoft.Models
             }
 
             this.studentsByName.Add(student.UserName, student);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

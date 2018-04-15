@@ -4,7 +4,7 @@ using BashSoft.Judge;
 using BashSoft.Contracts;
 using BashSoft.Repository;
 using BashSoft.Exceptions;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
 
 namespace BashSoft.IO.Commands
 {

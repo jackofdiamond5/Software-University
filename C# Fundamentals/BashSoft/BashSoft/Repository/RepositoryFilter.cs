@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using BashSoft.IO;
 using BashSoft.Contracts;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
 
 namespace BashSoft.Repository
 {

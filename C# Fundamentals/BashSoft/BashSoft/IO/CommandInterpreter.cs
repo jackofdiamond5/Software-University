@@ -76,6 +76,8 @@ namespace BashSoft.IO
                     return new PrintFilteredStudentsCommand(input, data, this.judge, this.repository, this.inputOutputManager);
                 case "order":
                     return new PrintOrderedStudentsCommand(input, data, this.judge, this.repository, this.inputOutputManager);
+                case "display":
+                    return new DisplayCommand(input, data, this.judge, this.repository, this.inputOutputManager);
                 case "decorder":
                     throw new NotImplementedException();
                 case "download":

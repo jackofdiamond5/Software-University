@@ -41,6 +41,8 @@ namespace BashSoft.Exceptions
                 $"|{"download file asinchronously - downloadAsynch: path of file (save in the current directory)",-98}|");
             OutputWriter.WriteMessageOnNewLine($"|{"get help – help",-98}|");
             OutputWriter.WriteMessageOnNewLine($"{new string('_', 100)}");
+            OutputWriter.WriteMessageOnNewLine(
+                string.Format("|{0, -98}|", "display data entities - display students/courses ascending/descending"));
             OutputWriter.WriteEmptyLine();
         }
     }

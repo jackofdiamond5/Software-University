@@ -1,7 +1,7 @@
 ﻿using BashSoft.Judge;
 using BashSoft.Contracts;
 using BashSoft.Repository;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
 using BashSoft.IO.Commands;
 
 namespace BashSoft.IO

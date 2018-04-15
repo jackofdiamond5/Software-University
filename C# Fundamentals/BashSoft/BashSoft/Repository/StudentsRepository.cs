@@ -8,7 +8,8 @@ using BashSoft.IO;
 using BashSoft.Models;
 using BashSoft.Contracts;
 using BashSoft.Exceptions;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
+using BashSoft.DataStructures;
 
 namespace BashSoft.Repository
 {
@@ -87,6 +88,50 @@ namespace BashSoft.Repository
 
                 this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
             }
+        }
+        
+        public void GetStudentScoresFromCourse(string courseName, string username)
+        {
+            if (IsQueryForStudentPossible(courseName, username))
+            {
+                OutputWriter.PrintStudent(
+                    new KeyValuePair<string, double>(username,
+                    this.courses[courseName].StudentsByName[username].MarksByCourseName[courseName]));
+            }
+        }
+
+        public void GetAllStudentsFromCourse(string courseName)
+        {
+            if (!IsQueryForCoursePossible(courseName))
+                return;
+
+            OutputWriter.WriteMessageOnNewLine($"{courseName}");
+            OutputWriter.WriteMessageOnNewLine("");
+
+            foreach (var courseEntry in this.courses[courseName].StudentsByName)
+            {
+                var currCourseEntry = courseEntry.Value;
+                foreach (var studentMarksEntry in this.courses[courseName].StudentsByName)
+                {
+                    GetStudentScoresFromCourse(courseName, studentMarksEntry.Key);
+                }
+            }
+        }
+
+        public ISimpleOrderedBag<ICourse> GetAllCoursesSorted(IComparer<ICourse> comparer)
+        {
+            var sortedCourses = new SimpleSortedList<ICourse>();
+            sortedCourses.AddAll(this.courses.Values);
+
+            return sortedCourses;
+        }
+
+        public ISimpleOrderedBag<IStudent> GetAllStudentsSorted(IComparer<IStudent> comparer)
+        {
+            var sortedStudents = new SimpleSortedList<IStudent>();
+            sortedStudents.AddAll(this.students.Values);
+
+            return sortedStudents;
         }
 
         private void ReadData(string fileName)
@@ -182,34 +227,6 @@ namespace BashSoft.Repository
 
             OutputWriter.DisplayException(ExceptionMessages.IndexistingStudentInDataBase);
             return false;
-        }
-
-        public void GetStudentScoresFromCourse(string courseName, string username)
-        {
-            if (IsQueryForStudentPossible(courseName, username))
-            {
-                OutputWriter.PrintStudent(
-                    new KeyValuePair<string, double>(username,
-                    this.courses[courseName].StudentsByName[username].MarksByCourseName[courseName]));
-            }
-        }
-
-        public void GetAllStudentsFromCourse(string courseName)
-        {
-            if (!IsQueryForCoursePossible(courseName))
-                return;
-
-            OutputWriter.WriteMessageOnNewLine($"{courseName}");
-            OutputWriter.WriteMessageOnNewLine("");
-
-            foreach (var courseEntry in this.courses[courseName].StudentsByName)
-            {
-                var currCourseEntry = courseEntry.Value;
-                foreach (var studentMarksEntry in this.courses[courseName].StudentsByName)
-                {
-                    GetStudentScoresFromCourse(courseName, studentMarksEntry.Key);
-                }
-            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using BashSoft.Contracts;
 using BashSoft.Exceptions;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
 
 namespace BashSoft.Models
 {
@@ -37,10 +37,14 @@ namespace BashSoft.Models
         }
 
         public IReadOnlyDictionary<string, ICourse> EnrolledCourses => this.enrolledCourses;
-        
+
         public IReadOnlyDictionary<string, double> MarksByCourseName => this.marksByCourseName;
 
-
+        public int CompareTo(IStudent other)
+        {
+            return this.UserName.CompareTo(other.UserName);
+        } 
+        
         public void EnrollInCourse(ICourse course)
         {
             if (this.EnrolledCourses.ContainsKey(course.Name))
@@ -64,6 +68,11 @@ namespace BashSoft.Models
             }
 
             this.marksByCourseName.Add(courseName, CalculateMark(scores));
+        }
+
+        public override string ToString()
+        {
+            return this.UserName;
         }
 
         private double CalculateMark(int[] scores)

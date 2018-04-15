@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using BashSoft.IO;
 using BashSoft.Contracts;
 using BashSoft.Exceptions;
-using BashSoft.Static_data;
+using BashSoft.StaticData;
 
 namespace BashSoft.Judge
 {
