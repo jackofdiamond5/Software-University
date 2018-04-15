@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 
 using BashSoft.IO;
+using BashSoft.Contracts;
 using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public class RepositoryFilter
+    public class RepositoryFilter : IDataFilterer
     {
         public void FilterAndTake(Dictionary<string, double> studentsWithMarks, string wantedFilter, int studentsToTake)
         {

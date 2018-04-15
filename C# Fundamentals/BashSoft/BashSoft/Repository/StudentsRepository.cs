@@ -6,16 +6,17 @@ using System.Text.RegularExpressions;
 
 using BashSoft.IO;
 using BashSoft.Models;
-using BashSoft.Static_data;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public class StudentsRepository
+    public class StudentsRepository : IDatabase
     {
         public bool IsDataInitialized;
-        private Dictionary<string, Course> courses;
-        private Dictionary<string, Student> students;
+        private Dictionary<string, ICourse> courses;
+        private Dictionary<string, IStudent> students;
         private RepositoryFilter filter;
         private RepositorySorter sorter;
 
@@ -50,8 +51,8 @@ namespace BashSoft.Repository
             }
 
             OutputWriter.WriteMessageOnNewLine("Reading data...");
-            this.students = new Dictionary<string, Student>();
-            this.courses = new Dictionary<string, Course>();
+            this.students = new Dictionary<string, IStudent>();
+            this.courses = new Dictionary<string, ICourse>();
             ReadData(fileName);
             IsDataInitialized = true;
         }

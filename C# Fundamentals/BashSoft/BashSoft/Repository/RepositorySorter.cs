@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 
 using BashSoft.IO;
+using BashSoft.Contracts;
 using BashSoft.Static_data;
 
 namespace BashSoft.Repository
 {
-    public class RepositorySorter
+    public class RepositorySorter : IDataSorter
     {
         public void OrderAndTake(Dictionary<string, double> studentsWithMarks, string comparison, int studentsToTake)
         {

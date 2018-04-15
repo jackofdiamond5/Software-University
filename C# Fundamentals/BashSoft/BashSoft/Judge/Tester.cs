@@ -3,12 +3,13 @@ using System.IO;
 using System.Collections.Generic;
 
 using BashSoft.IO;
-using BashSoft.Static_data;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Static_data;
 
 namespace BashSoft.Judge
 {
-    public class Tester
+    public class Tester : IContentComparer
     {
         public void CompareContent(string userOutputPath, string expectedOutputPath)
         {

@@ -2,15 +2,16 @@
 using System.Linq;
 using System.Collections.Generic;
 
-using BashSoft.Static_data;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Static_data;
 
 namespace BashSoft.Models
 {
-    public class Student
+    public class Student : IStudent
     {
         private string userName;
-        private Dictionary<string, Course> enrolledCourses;
+        private Dictionary<string, ICourse> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
 
         public Student(string userName)
@@ -35,12 +36,12 @@ namespace BashSoft.Models
             }
         }
 
-        public IReadOnlyDictionary<string, Course> EnrolledCourses => this.enrolledCourses;
+        public IReadOnlyDictionary<string, ICourse> EnrolledCourses => this.enrolledCourses;
         
         public IReadOnlyDictionary<string, double> MarksByCourseName => this.marksByCourseName;
 
 
-        public void EnrollInCourse(Course course)
+        public void EnrollInCourse(ICourse course)
         {
             if (this.EnrolledCourses.ContainsKey(course.Name))
             {
