@@ -1,14 +1,15 @@
 ﻿using BashSoft.IO;
-using BashSoft.IO.Commands;
 using BashSoft.Judge;
+using BashSoft.Contracts;
 using BashSoft.Repository;
+using BashSoft.IO.Commands;
 
 namespace BashSoft.Exceptions
 {
     class GetHelpCommand : Command
     {
         public GetHelpCommand(string input, string[] data, Tester judge,
-            StudentsRepository repository, IoManager inputOutputManager)
+            StudentsRepository repository, IDirectoryManager inputOutputManager)
             : base(input, data, judge, repository, inputOutputManager) { }
 
         public override void Execute()

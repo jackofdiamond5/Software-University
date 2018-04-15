@@ -1,15 +1,17 @@
-﻿using BashSoft.IO.Commands;
-using BashSoft.Judge;
+﻿using BashSoft.Judge;
+using BashSoft.Contracts;
 using BashSoft.Repository;
 using BashSoft.Static_data;
+using BashSoft.IO.Commands;
 
 namespace BashSoft.IO
 {
     internal class TraverseFolderCommand : Command
     {
         public TraverseFolderCommand(string input, string[] data, Tester judge, 
-            StudentsRepository repository, IoManager inputOutputManager)
+            StudentsRepository repository, IDirectoryManager inputOutputManager)
             : base(input, data, judge, repository, inputOutputManager) { }
+
         public override void Execute()
         {
             switch (this.Data.Length)

@@ -5,16 +5,17 @@ using BashSoft.Judge;
 using BashSoft.Repository;
 using BashSoft.IO.Commands;
 using BashSoft.Exceptions;
+using BashSoft.Contracts;
 
 namespace BashSoft.IO
 {
-    public class CommandInterpreter
+    public class CommandInterpreter : IInterpreter
     {
         private Tester judge;
         private StudentsRepository repository;
-        private IoManager inputOutputManager;
+        private IDirectoryManager inputOutputManager;
 
-        public CommandInterpreter(Tester judge, StudentsRepository repository, IoManager inputOutputManager)
+        public CommandInterpreter(Tester judge, StudentsRepository repository, IDirectoryManager inputOutputManager)
         {
             this.judge = judge;
             this.repository = repository;
@@ -49,7 +50,7 @@ namespace BashSoft.IO
             }
         }
 
-        private Command ParseCommand(string input, string command, string[] data)
+        private IExecutable ParseCommand(string input, string command, string[] data)
         {
             switch (command.ToLower())
             {

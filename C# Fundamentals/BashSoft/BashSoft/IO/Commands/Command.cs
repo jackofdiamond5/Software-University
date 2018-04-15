@@ -1,21 +1,22 @@
 ﻿using System;
 
 using BashSoft.Judge;
+using BashSoft.Contracts;
 using BashSoft.Repository;
 using BashSoft.Exceptions;
 
 namespace BashSoft.IO.Commands
 {
-    public abstract class Command
+    public abstract class Command : IExecutable
     {
         private string input;
         private string[] data;
         private Tester judge;
         private StudentsRepository repository;
-        private IoManager inputOutputManager;
+        private IDirectoryManager inputOutputManager;
 
         public Command(string input, string[] data, Tester judge, 
-            StudentsRepository repository, IoManager inputOutputManager)
+            StudentsRepository repository, IDirectoryManager inputOutputManager)
         {
             this.Input = input;
             this.Data = data;
@@ -74,7 +75,7 @@ namespace BashSoft.IO.Commands
             }
         }
 
-        protected IoManager InputOutputManager
+        protected IDirectoryManager InputOutputManager
         {
             get
             {

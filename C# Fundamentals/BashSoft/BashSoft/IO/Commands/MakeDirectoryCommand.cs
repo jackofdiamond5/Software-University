@@ -1,13 +1,14 @@
 ﻿using BashSoft.Judge;
-using BashSoft.Repository;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Repository;
 
 namespace BashSoft.IO.Commands
 {
     class MakeDirectoryCommand : Command
     {
         public MakeDirectoryCommand(string input, string[] data, Tester judge, 
-            StudentsRepository repository, IoManager inputOutputManager) 
+            StudentsRepository repository, IDirectoryManager inputOutputManager) 
             : base(input, data, judge, repository, inputOutputManager) { }
 
         public override void Execute()

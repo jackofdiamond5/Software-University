@@ -43,6 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BashSoftProgram.cs" />
+    <Compile Include="Contracts\IDirectoryChanger.cs" />
+    <Compile Include="Contracts\IDirectoryCreator.cs" />
+    <Compile Include="Contracts\IDirectoryManager.cs" />
+    <Compile Include="Contracts\IDirectoryTraverser.cs" />
+    <Compile Include="Contracts\IExecutable.cs" />
+    <Compile Include="Contracts\IInterpreter.cs" />
+    <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Exceptions\CourseNotFoundException.cs" />
     <Compile Include="Exceptions\DataAlreadyInitializedException.cs" />
     <Compile Include="Exceptions\DataNotInitializedException.cs" />

@@ -1,4 +1,5 @@
 ﻿using BashSoft.Judge;
+using BashSoft.Contracts;
 using BashSoft.Repository;
 using BashSoft.Static_data;
 
@@ -7,7 +8,7 @@ namespace BashSoft.IO.Commands
     class PrintOrderedStudentsCommand : Command
     {
         public PrintOrderedStudentsCommand(string input, string[] data, Tester judge,
-            StudentsRepository repository, IoManager inputOutputManager)
+            StudentsRepository repository, IDirectoryManager inputOutputManager)
             : base(input, data, judge, repository, inputOutputManager) { }
 
         public override void Execute()

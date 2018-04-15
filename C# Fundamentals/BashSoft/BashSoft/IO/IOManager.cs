@@ -2,12 +2,13 @@
 using System.IO;
 using System.Collections.Generic;
 
-using BashSoft.Static_data;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Static_data;
 
 namespace BashSoft.IO
 {
-    public class IoManager
+    public class IoManager : IDirectoryManager
     {
         public void CreateDirectoryInCurrentFolder(string folderName)
         {
