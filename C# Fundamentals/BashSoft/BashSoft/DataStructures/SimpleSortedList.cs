@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using BashSoft.Contracts;
+using System.Linq;
 
 namespace BashSoft.DataStructures
 {
@@ -13,17 +14,19 @@ namespace BashSoft.DataStructures
 
         private T[] innerCollection;
         private int size;
+        private int capacity;
         private IComparer<T> comparison;
 
         public SimpleSortedList()
         {
-            this.size = DefaultSize;
+            this.innerCollection = new T[DefaultSize];
             this.comparison = Comparer<T>.Create((x, y) => x.CompareTo(y));
         }
 
         public SimpleSortedList(IComparer<T> comparer, int capacity)
+            : this()
         {
-            this.size = capacity;
+            this.innerCollection = new T[capacity];
             this.comparison = comparer;
         }
 
@@ -32,8 +35,21 @@ namespace BashSoft.DataStructures
 
         public int Size => this.size;
 
+        public int Capacity
+        {
+            get
+            {
+                return this.innerCollection.Length;
+            }
+        }
+
         public void Add(T element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.innerCollection.Length <= this.Size)
             {
                 this.Resize();
@@ -46,6 +62,11 @@ namespace BashSoft.DataStructures
 
         public void AddAll(ICollection<T> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.Size + collection.Count >= this.innerCollection.Length)
             {
                 this.MultiResize(collection);
@@ -58,6 +79,46 @@ namespace BashSoft.DataStructures
             }
 
             Array.Sort(this.innerCollection, 0, this.size, this.comparison);
+        }
+
+        public bool Remove(T element)
+        {
+            if(element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (!this.innerCollection.Contains(element))
+            {
+                throw new InvalidOperationException("The element is not present within the collection!");
+            }
+
+            var hasBeenRemoved = false;
+            var indexOfRemovedElement = 0;
+
+            for (var i = 0; i < this.Size; i++)
+            {
+                if (this.innerCollection[i].Equals(element))
+                {
+                    indexOfRemovedElement = i;
+                    this.innerCollection[i] = default(T);
+                    hasBeenRemoved = true;
+                    break;
+                }
+            }
+
+            if (hasBeenRemoved)
+            {
+                for (var i = indexOfRemovedElement; i < this.Size - 1; i++)
+                {
+                    this.innerCollection[i] = this.innerCollection[i + 1];
+                }
+
+                this.innerCollection[this.size - 1] = default(T);
+                this.size--;
+            }
+
+            return hasBeenRemoved;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -75,6 +136,11 @@ namespace BashSoft.DataStructures
 
         public string JoinWith(string joiner)
         {
+            if(joiner == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var builder = new StringBuilder();
             foreach (var element in this)
             {
@@ -82,7 +148,7 @@ namespace BashSoft.DataStructures
                 builder.Append(joiner);
             }
 
-            builder.Remove(builder.Length - 1, 1);
+            builder.Remove(builder.Length - joiner.Length, joiner.Length);
             return builder.ToString();
         }
 
