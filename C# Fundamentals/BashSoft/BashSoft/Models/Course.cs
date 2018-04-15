@@ -35,7 +35,7 @@ namespace BashSoft.Models
             }
         }
 
-        public IReadOnlyDictionary<string, IStudent> StudentsByName => (IReadOnlyDictionary<string, IStudent>)studentsByName;
+        public IReadOnlyDictionary<string, IStudent> StudentsByName => studentsByName;
 
         public int CompareTo(ICourse other)
         {

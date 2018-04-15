@@ -1,16 +1,18 @@
-﻿using BashSoft.Judge;
-using BashSoft.Contracts;
-using BashSoft.Repository;
+﻿using BashSoft.Contracts;
 using BashSoft.Exceptions;
+using BashSoft.Attributes;
 using BashSoft.IO.Commands;
 
 namespace BashSoft.IO
 {
+    [Alias("trydropdb")]
     internal class DropDatabaseCommand : Command
     {
-        public DropDatabaseCommand(string input, string[] data, Tester judge,
-            StudentsRepository repository, IDirectoryManager inputOutputManager)
-            : base(input, data, judge, repository, inputOutputManager) { }
+        [Inject]
+        private IDatabase repository;
+
+        public DropDatabaseCommand(string input, string[] data)
+            : base(input, data) { }
 
         public override void Execute()
         {
@@ -19,7 +21,7 @@ namespace BashSoft.IO
                 throw new InvalidCommandException(this.Input);
             }
 
-            this.Repository.UnloadData();
+            this.repository.UnloadData();
             OutputWriter.WriteMessageOnNewLine("Database dropped!");
         }
     }

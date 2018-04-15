@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 using BashSoft.Judge;
-using BashSoft.Repository;
-using BashSoft.IO.Commands;
-using BashSoft.Exceptions;
 using BashSoft.Contracts;
+using BashSoft.Repository;
+using BashSoft.Attributes;
+using BashSoft.IO.Commands;
 
 namespace BashSoft.IO
 {
@@ -26,7 +28,7 @@ namespace BashSoft.IO
         {
             var data = input.Split();
             var commandName = data[0];
-            
+
             try
             {
                 var command = ParseCommand(input, commandName, data);
@@ -52,43 +54,39 @@ namespace BashSoft.IO
 
         private IExecutable ParseCommand(string input, string command, string[] data)
         {
-            switch (command.ToLower())
+            var parametersForConstructors = new object[] { input, data };
+
+            var typeOfCommand = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .First(type => type.GetCustomAttributes(typeof(AliasAttribute))
+                    .Where(atr => atr.Equals(command))
+                    .ToArray().Length > 0);
+
+            var typeOfInterpreter = typeof(CommandInterpreter);
+
+            var exe = (Command)Activator.CreateInstance(typeOfCommand, parametersForConstructors);
+
+            var fieldsOfCommand = typeOfCommand
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            var fieldsOfIntepreter = typeOfInterpreter
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            foreach (var fieldOfCommand in fieldsOfCommand)
             {
-                case "open":
-                    return new OpenFileCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "mkdir":
-                    return new MakeDirectoryCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "ls":
-                    return new TraverseFolderCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "cmp":
-                    return new CompareFilesCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "cdrel":
-                    return new ChangePathRelativelyCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "cdabs":
-                    return new ChangePathAbsoluteCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "readdb":
-                    return new ReadDatabaseFromFileCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "help":
-                    return new GetHelpCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "show":
-                    return new ShowWantedDataCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "filter":
-                    return new PrintFilteredStudentsCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "order":
-                    return new PrintOrderedStudentsCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "display":
-                    return new DisplayCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                case "decorder":
-                    throw new NotImplementedException();
-                case "download":
-                    throw new NotImplementedException();
-                case "downloadasynch":
-                    throw new NotImplementedException();
-                case "trydropdb":
-                    return new DropDatabaseCommand(input, data, this.judge, this.repository, this.inputOutputManager);
-                default:
-                    throw new InvalidCommandException(input);
+                var atrAttribute = fieldOfCommand.GetCustomAttribute(typeof(InjectAttribute));
+                if (atrAttribute != null)
+                {
+                    if (fieldsOfIntepreter.Any(x => x.FieldType == fieldOfCommand.FieldType))
+                    {
+                        fieldOfCommand.SetValue(exe,
+                            fieldsOfIntepreter.First(x => x.FieldType == fieldOfCommand.FieldType)
+                            .GetValue(this));
+                    }
+                }
             }
+
+            return exe;
         }
     }
 }

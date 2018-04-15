@@ -11,18 +11,11 @@ namespace BashSoft.IO.Commands
     {
         private string input;
         private string[] data;
-        private Tester judge;
-        private StudentsRepository repository;
-        private IDirectoryManager inputOutputManager;
 
-        public Command(string input, string[] data, Tester judge, 
-            StudentsRepository repository, IDirectoryManager inputOutputManager)
+        public Command(string input, string[] data)
         {
             this.Input = input;
             this.Data = data;
-            this.judge = judge;
-            this.repository = repository;
-            this.inputOutputManager = inputOutputManager;
         }
 
         protected string Input
@@ -58,31 +51,7 @@ namespace BashSoft.IO.Commands
                 this.data = value;
             }
         }
-
-        protected Tester Judge
-        {
-            get
-            {
-                return this.judge;
-            }
-        }
-
-        protected StudentsRepository Repository
-        {
-            get
-            {
-                return this.repository;
-            }
-        }
-
-        protected IDirectoryManager InputOutputManager
-        {
-            get
-            {
-                return this.inputOutputManager;
-            }
-        }
-
+        
         public abstract void Execute();
     }
 }

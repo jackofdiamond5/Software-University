@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using BashSoft.Judge;
 using BashSoft.Contracts;
-using BashSoft.Repository;
+using BashSoft.Attributes;
 using BashSoft.Exceptions;
 
 namespace BashSoft.IO.Commands
 {
+    [Alias("display")]
     public class DisplayCommand : Command
     {
         private string input;
         private string[] data;
-        private Tester judge;
-        private StudentsRepository repository;
-        private IDirectoryManager inputOutputManager;
 
-        public DisplayCommand(string input, string[] data, Tester judge, 
-            StudentsRepository repository, IDirectoryManager inputOutputManager)
-            : base(input, data, judge, repository, inputOutputManager)
+        [Inject]
+        private IDatabase repository;
+
+        public DisplayCommand(string input, string[] data)
+            : base(input, data)
         {
             this.input = input;
             this.data = data;
-            this.judge = judge;
-            this.repository = repository;
-            this.inputOutputManager = inputOutputManager;
         }
 
         public override void Execute()
         {
-            if(this.Data.Length != 3)
+            if (this.Data.Length != 3)
             {
                 throw new InvalidCommandException(this.Input);
             }
@@ -37,17 +33,17 @@ namespace BashSoft.IO.Commands
             var entityToDisplay = this.Data[1];
             var sortType = this.Data[2];
 
-            if(entityToDisplay.Equals("students", StringComparison.OrdinalIgnoreCase))
+            if (entityToDisplay.Equals("students", StringComparison.OrdinalIgnoreCase))
             {
                 var studentsComparator = this.CreateStudentComparator(sortType);
-                var list = this.Repository.GetAllStudentsSorted(studentsComparator);
+                var list = this.repository.GetAllStudentsSorted(studentsComparator);
 
                 OutputWriter.WriteMessageOnNewLine(list.JoinWith(Environment.NewLine));
             }
-            else if(entityToDisplay.Equals("courses", StringComparison.OrdinalIgnoreCase))
+            else if (entityToDisplay.Equals("courses", StringComparison.OrdinalIgnoreCase))
             {
                 var coursesComparator = this.CreateCourseComparator(sortType);
-                var list = this.Repository.GetAllCoursesSorted(coursesComparator);
+                var list = this.repository.GetAllCoursesSorted(coursesComparator);
 
                 OutputWriter.WriteMessageOnNewLine(list.JoinWith(Environment.NewLine));
             }
@@ -63,7 +59,7 @@ namespace BashSoft.IO.Commands
             {
                 return Comparer<IStudent>.Create((sOne, sTwo) => sOne.CompareTo(sTwo));
             }
-            else if(sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
+            else if (sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
             {
                 return Comparer<IStudent>.Create((sOne, sTwo) => sTwo.CompareTo(sOne));
             }
@@ -73,11 +69,11 @@ namespace BashSoft.IO.Commands
 
         private IComparer<ICourse> CreateCourseComparator(string sortType)
         {
-            if(sortType.Equals("ascending", StringComparison.OrdinalIgnoreCase))
+            if (sortType.Equals("ascending", StringComparison.OrdinalIgnoreCase))
             {
                 return Comparer<ICourse>.Create((cOne, cTwo) => cOne.CompareTo(cTwo));
             }
-            else if(sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
+            else if (sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
             {
                 return Comparer<ICourse>.Create((cOne, cTwo) => cTwo.CompareTo(cOne));
             }
