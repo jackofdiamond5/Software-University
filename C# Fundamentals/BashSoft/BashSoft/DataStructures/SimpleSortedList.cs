@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
 using BashSoft.Contracts;
-using System.Linq;
 
 namespace BashSoft.DataStructures
 {
@@ -83,7 +83,7 @@ namespace BashSoft.DataStructures
 
         public bool Remove(T element)
         {
-            if(element == null)
+            if (element == null)
             {
                 throw new ArgumentNullException();
             }
@@ -136,7 +136,7 @@ namespace BashSoft.DataStructures
 
         public string JoinWith(string joiner)
         {
-            if(joiner == null)
+            if (joiner == null)
             {
                 throw new ArgumentNullException();
             }
