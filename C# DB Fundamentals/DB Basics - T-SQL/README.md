@@ -1,0 +1,1 @@
+T-SQL exercises @ SoftUni
