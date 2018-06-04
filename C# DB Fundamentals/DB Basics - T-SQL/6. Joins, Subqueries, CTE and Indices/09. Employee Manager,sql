@@ -1,0 +1,14 @@
+SELECT
+	e.EmployeeId,
+	e.FirstName,
+	e.ManagerId,
+	m.ManagerName
+FROM Employees AS e
+JOIN (
+	SELECT 
+		FirstName AS ManagerName, 
+		EmployeeId
+	FROM Employees
+) AS m ON m.EmployeeID = e.ManagerID
+WHERE m.EmployeeID IN(3, 7)
+ORDER BY e.EmployeeID

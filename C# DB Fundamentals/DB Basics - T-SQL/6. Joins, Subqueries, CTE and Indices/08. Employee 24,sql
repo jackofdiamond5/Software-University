@@ -1,0 +1,8 @@
+SELECT 
+	e.EmployeeID,
+	e.FirstName,
+	IIF(p.StartDate > '01/01/2005', NULL, p.Name) AS ProjectName
+FROM Projects AS p
+JOIN EmployeesProjects AS ep ON ep.ProjectID = p.ProjectID
+JOIN Employees AS e ON e.EmployeeID = ep.EmployeeID
+WHERE e.EmployeeID = 24
