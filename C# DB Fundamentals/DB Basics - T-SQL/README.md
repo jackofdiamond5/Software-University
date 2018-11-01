@@ -1,5 +1,3 @@
-T-SQL exercises @ SoftUni
-
 
 | Lectures | 
 |----------------------       
