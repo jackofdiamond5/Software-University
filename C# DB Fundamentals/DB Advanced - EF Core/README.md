@@ -1,5 +1,5 @@
 
-| Lectures       |
+| Projects       |
 |----------------------       
 | [Book Shop](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20DB%20Fundamentals/DB%20Advanced%20-%20EF%20Core/BookShop)                
 | [Employees Mapping](https://github.com/jackofdiamond5/Software-University/tree/master/C%23%20DB%20Fundamentals/DB%20Advanced%20-%20EF%20Core/Employees%20Mapping)                        |
